@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
 
             override fun doInBackground(vararg params: Void?): Boolean {
-                Thread.sleep(1000)
+                Thread.sleep(5000)
                 return true
             }
 
