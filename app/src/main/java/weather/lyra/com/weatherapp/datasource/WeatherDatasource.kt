@@ -1,4 +1,4 @@
-package weather.lyra.com.weatherapp.service
+package weather.lyra.com.weatherapp.datasource
 
 //import io.reactivex.Single
 import koin.sampleapp.service.json.geocode.Geocode
@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-interface WeatherWS {
+interface WeatherDatasource {
 
     @GET("/geocode")
     @Headers("Content-type: application/json")

@@ -2,9 +2,11 @@ package weather.lyra.com.weatherapp.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.app.inject
 import org.koin.android.ext.android.app.release
+import weather.lyra.com.weatherapp.NavigationHelper
 import weather.lyra.com.weatherapp.R
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -12,7 +14,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
 
     override fun goToDisplayWeatherResult() {
-
+        Snackbar.make(this.currentFocus, "Go to", Snackbar.LENGTH_SHORT).show()
+        //NavigationHelper.startActivity(this, WeatherCityActivity.)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
