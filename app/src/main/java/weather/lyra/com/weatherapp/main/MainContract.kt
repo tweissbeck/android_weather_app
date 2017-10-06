@@ -9,6 +9,7 @@ import koin.sampleapp.BaseView
 interface MainContract {
     interface View : BaseView<Presenter> {
         fun goToDisplayWeatherResult()
+        fun displayError(error: Throwable)
     }
 
     interface Presenter : BasePresenter<View> {

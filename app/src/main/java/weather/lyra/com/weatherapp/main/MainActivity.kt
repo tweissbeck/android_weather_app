@@ -1,15 +1,16 @@
 package weather.lyra.com.weatherapp.main
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.app.inject
 import org.koin.android.ext.android.app.release
-import weather.lyra.com.weatherapp.NavigationHelper
 import weather.lyra.com.weatherapp.R
 
 class MainActivity : AppCompatActivity(), MainContract.View {
+
+
     override val presenter: MainContract.Presenter by inject()
 
 
@@ -33,9 +34,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.start()
     }
 
+
     override fun onPause() {
         release(this)
         super.onPause()
+    }
+
+    override fun displayError(error: Throwable) {
+        Snackbar.make(this.currentFocus, "/No good", Snackbar.LENGTH_SHORT).show()
     }
 
 

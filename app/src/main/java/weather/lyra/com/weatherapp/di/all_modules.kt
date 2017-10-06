@@ -3,9 +3,15 @@ package weather.lyra.com.weatherapp.di
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.AndroidModule
+import org.koin.dsl.context.Context
+import org.koin.dsl.module.Module
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 //import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import rx.ApplicationSchedulerProvider
+import rx.SchedulerProvider
+import rx.TestSchedulerProvider
 import weather.lyra.com.weatherapp.datasource.WeatherDatasource
 import weather.lyra.com.weatherapp.main.MainActivity
 import weather.lyra.com.weatherapp.main.MainContract
@@ -14,23 +20,30 @@ import weather.lyra.com.weatherapp.repository.WeatherRepository
 import weather.lyra.com.weatherapp.repository.WeatherRepositoryImpl
 import java.util.concurrent.TimeUnit
 
-fun allModules() = listOf(WebModule(), MainModule())
+fun allModules() = listOf(WebModule(), MainModule(), RxModule())
 
-/*class WeatherModule : AndroidModule() {
-    override fun context() =
-            // Scope MainActivity
-            declareContext(scope = MainActivity::class) {
-                provide { WeatherPresenter(get(), get()) } bind (WeatherContract.Presenter::class)
-            }
-}*/
+class RxModule : AndroidModule() {
+    override fun context(): Context = declareContext {
+        provide { ApplicationSchedulerProvider() } bind { SchedulerProvider::class }
+    }
+}
+
 
 class MainModule : AndroidModule() {
     override fun context() =
             declareContext {
                 scope { MainActivity::class }
                 // Rx schedulers
-                provide { MainPresenter(get()) } bind { MainContract.Presenter::class }
+                provide { MainPresenter(get(), get()) } bind { MainContract.Presenter::class }
             }
+
+}
+
+class RxTestModule : Module() {
+    override fun context(): Context = declareContext {
+        provide { TestSchedulerProvider() } bind { SchedulerProvider::class }
+    }
+
 
 }
 
@@ -57,8 +70,8 @@ class WebModule : AndroidModule() {
         val retrofit = Retrofit.Builder()
                 .baseUrl(url)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create()).build()
-        //.addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
         return retrofit.create(WeatherDatasource::class.java)
     }
 

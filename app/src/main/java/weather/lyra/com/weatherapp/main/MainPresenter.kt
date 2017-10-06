@@ -1,13 +1,12 @@
 package weather.lyra.com.weatherapp.main
 
-import android.os.AsyncTask
-import koin.sampleapp.service.json.weather.Weather
+import rx.SchedulerProvider
 import weather.lyra.com.weatherapp.repository.WeatherRepository
 
 /**
  * Created by tweissbeck on 06/10/2017.
  */
-class MainPresenter(val weatherRepository: WeatherRepository) : MainContract.Presenter {
+class MainPresenter(val weatherRepository: WeatherRepository, val schedulerProvider: SchedulerProvider) : MainContract.Presenter {
 
     override lateinit var view: MainContract.View
 
@@ -16,15 +15,11 @@ class MainPresenter(val weatherRepository: WeatherRepository) : MainContract.Pre
     }
 
     override fun searchWeather(address: String) {
-        val async = object : AsyncTask<Void, Void, Weather>() {
-            override fun doInBackground(vararg params: Void?): Weather =
-                    weatherRepository.weather(address)
-
-            override fun onPostExecute(result: Weather) {
-                super.onPostExecute(result)
-                view.goToDisplayWeatherResult()
-            }
-        }
-        async.execute()
+        val subscribe = weatherRepository.weather(address)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(
+                        { result -> view.goToDisplayWeatherResult() },
+                        { error -> view.displayError(error) })
     }
 }
