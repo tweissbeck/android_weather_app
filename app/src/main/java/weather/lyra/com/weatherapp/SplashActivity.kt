@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_splash.*
+import weather.lyra.com.weatherapp.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -56,6 +57,6 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun goToWeatherActivity() {
-        NavigationHelper.startActivity(this, WeatherActivity::class.java, clearStack = true)
+        NavigationHelper.startActivity(this, MainActivity::class.java, clearStack = true)
     }
 }

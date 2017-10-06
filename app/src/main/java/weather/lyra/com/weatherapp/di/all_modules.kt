@@ -13,8 +13,8 @@ fun allModules() = listOf(WebModule())
 
 /*class WeatherModule : AndroidModule() {
     override fun context() =
-            // Scope WeatherActivity
-            declareContext(scope = WeatherActivity::class) {
+            // Scope MainActivity
+            declareContext(scope = MainActivity::class) {
                 provide { WeatherPresenter(get(), get()) } bind (WeatherContract.Presenter::class)
             }
 }*/
