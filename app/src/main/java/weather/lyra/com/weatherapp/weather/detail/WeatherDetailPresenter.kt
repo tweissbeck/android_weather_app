@@ -1,6 +1,7 @@
 package weather.lyra.com.weatherapp.weather.detail
 
 import android.util.Log
+import io.reactivex.disposables.Disposable
 import rx.SchedulerProvider
 import weather.lyra.com.weatherapp.repository.WeatherRepository
 
@@ -9,11 +10,16 @@ import weather.lyra.com.weatherapp.repository.WeatherRepository
  */
 class WeatherDetailPresenter(val repo: WeatherRepository, val scheduler: SchedulerProvider) :
         WeatherDetailContract.Presenter {
+    var request: Disposable? = null
+    override fun stop() {
+        request?.dispose()
+    }
+
     override fun start() {
     }
 
     override fun loadDetail(id: String) {
-        repo.loadDetail(id).subscribeOn(scheduler.io()).observeOn(scheduler.ui()).subscribe(
+        request = repo.loadDetail(id).subscribeOn(scheduler.io()).observeOn(scheduler.ui()).subscribe(
                 { success -> view.displayDetail(success) }, { error -> Log.e("WeatherDetail", "", error) }
         )
 

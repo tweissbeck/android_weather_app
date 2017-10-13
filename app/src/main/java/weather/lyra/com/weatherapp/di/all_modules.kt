@@ -15,6 +15,7 @@ import rx.TestSchedulerProvider
 import weather.lyra.com.weatherapp.datasource.WeatherDatasource
 import weather.lyra.com.weatherapp.datastore.AndroidDataStore
 import weather.lyra.com.weatherapp.datastore.DataStore
+import weather.lyra.com.weatherapp.datastore.TestDataStore
 import weather.lyra.com.weatherapp.main.MainContract
 import weather.lyra.com.weatherapp.main.MainPresenter
 import weather.lyra.com.weatherapp.repository.WeatherRepository
@@ -61,9 +62,23 @@ class MainModule : AndroidModule() {
 
 }
 
-class RxTestModule : Module() {
+
+class TestModule : Module() {
     override fun context(): Context = applicationContext {
+        context(name = MainModule.CTX_MAIN) {
+            // Rx schedulers
+            provide { MainPresenter(get(), get(), get()) } bind MainContract.Presenter::class
+        }
+        context(MainModule.CTX_LIST) {
+            provide {
+                WeatherListPresenter(get(), get())
+            } bind WeatherContract.Presenter::class
+            context(MainModule.CTX_DETAIL) {
+                provide { WeatherDetailPresenter(get(), get()) } bind WeatherDetailContract.Presenter::class
+            }
+        }
         provide { TestSchedulerProvider() } bind SchedulerProvider::class
+        provide { TestDataStore() } bind DataStore::class
     }
 
 

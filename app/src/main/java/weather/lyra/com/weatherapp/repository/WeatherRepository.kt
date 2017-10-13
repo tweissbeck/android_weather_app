@@ -11,6 +11,7 @@ import weather.lyra.com.weatherapp.model.DailyForecastModel
  */
 interface WeatherRepository {
     fun weather(address: String): Single<List<DailyForecastModel>>
+    // Overkill Rx
     fun loadLast(): Single<List<DailyForecastModel>>
     fun loadDetail(id: String): Single<DailyForecastModel>
 }

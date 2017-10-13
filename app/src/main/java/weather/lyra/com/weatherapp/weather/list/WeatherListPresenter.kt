@@ -1,16 +1,20 @@
 package weather.lyra.com.weatherapp.weather.list
 
-import koin.sampleapp.service.json.getDailyForecasts
+import io.reactivex.disposables.Disposable
 import rx.SchedulerProvider
 import weather.lyra.com.weatherapp.model.DailyForecastModel
 import weather.lyra.com.weatherapp.repository.WeatherRepository
-import weather.lyra.com.weatherapp.weather.list.WeatherContract
 
 /**
  * @author tweissbeck
  */
 class WeatherListPresenter(val schedulerProvider: SchedulerProvider, val weatherRepository: WeatherRepository) :
         WeatherContract.Presenter {
+    var request: Disposable? = null
+    override fun stop() {
+        request?.dispose()
+    }
+
     override fun start() {
 
     }
@@ -19,7 +23,7 @@ class WeatherListPresenter(val schedulerProvider: SchedulerProvider, val weather
 
     override fun loadWeather() {
 
-        weatherRepository.loadLast().subscribeOn(schedulerProvider.io()).observeOn(
+        request = weatherRepository.loadLast().subscribeOn(schedulerProvider.io()).observeOn(
                 schedulerProvider.ui()).subscribe(
                 { success -> view.displayWeather(success) }, { error -> view.onError(error) })
     }

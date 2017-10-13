@@ -4,6 +4,7 @@
     <string name="logo">Logo</string>
     <string name="server_url">https://my-weather-api.herokuapp.com/</string>
     <string name="weatherTitle">Weather</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

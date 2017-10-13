@@ -1,5 +1,6 @@
 package weather.lyra.com.weatherapp.main
 
+import io.reactivex.disposables.Disposable
 import rx.SchedulerProvider
 import weather.lyra.com.weatherapp.datastore.DataStore
 import weather.lyra.com.weatherapp.repository.WeatherRepository
@@ -9,6 +10,11 @@ import weather.lyra.com.weatherapp.repository.WeatherRepository
  */
 class MainPresenter(val weatherRepository: WeatherRepository, val schedulerProvider: SchedulerProvider,
                     val dataStore: DataStore) : MainContract.Presenter {
+    var request: Disposable? = null
+
+    override fun stop() {
+        request?.dispose()
+    }
 
     companion object {
         val lastSeachKey: String = "PREF_SEARCH_KEY"
@@ -23,11 +29,13 @@ class MainPresenter(val weatherRepository: WeatherRepository, val schedulerProvi
 
     override fun searchWeather(address: String) {
         dataStore.save(lastSeachKey, address)
-        weatherRepository.weather(address)
+        request = weatherRepository.weather(address)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(
                         { result -> view.goToDisplayWeatherResult() },
                         { error -> view.displayError(error) })
     }
+
+
 }

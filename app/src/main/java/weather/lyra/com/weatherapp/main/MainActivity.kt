@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
 
     override fun onPause() {
+        presenter.stop()
         release(MainModule.CTX_MAIN)
         super.onPause()
     }
