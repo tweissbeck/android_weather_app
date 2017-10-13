@@ -10,6 +10,7 @@ import weather.lyra.com.weatherapp.datasource.WeatherDatasource
  */
 interface WeatherRepository {
     fun weather(address: String): Single<Weather>
+    fun loadLast(): Single<Weather>
 }
 
 class WeatherRepositoryImpl(val weatehrDataSource: WeatherDatasource) : WeatherRepository {
@@ -23,6 +24,10 @@ class WeatherRepositoryImpl(val weatehrDataSource: WeatherDatasource) : WeatherR
                 .map { it.getLocation() ?: error("No locations for $address") }
                 .flatMap { location -> weatehrDataSource.weather(location.lat, location.lng, "en") }
                 .doOnSuccess { cacheResult = Pair(address, it) }
+    }
+
+    override fun loadLast(): Single<Weather> {
+        return Single.just(cacheResult!!.second)
     }
 
 }
