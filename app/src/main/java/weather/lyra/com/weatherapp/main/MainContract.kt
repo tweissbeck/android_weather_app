@@ -10,6 +10,7 @@ interface MainContract {
     interface View : BaseView<Presenter> {
         fun goToDisplayWeatherResult()
         fun displayError(error: Throwable)
+        fun initLastSearch(lastSearch: String)
     }
 
     interface Presenter : BasePresenter<View> {

@@ -13,6 +13,8 @@ import rx.ApplicationSchedulerProvider
 import rx.SchedulerProvider
 import rx.TestSchedulerProvider
 import weather.lyra.com.weatherapp.datasource.WeatherDatasource
+import weather.lyra.com.weatherapp.datastore.AndroidDataStore
+import weather.lyra.com.weatherapp.datastore.DataStore
 import weather.lyra.com.weatherapp.main.MainContract
 import weather.lyra.com.weatherapp.main.MainPresenter
 import weather.lyra.com.weatherapp.repository.WeatherRepository
@@ -37,7 +39,7 @@ class MainModule : AndroidModule() {
             applicationContext {
                 context(name = CTX_MAIN) {
                     // Rx schedulers
-                    provide { MainPresenter(get(), get()) } bind MainContract.Presenter::class
+                    provide { MainPresenter(get(), get(), get()) } bind MainContract.Presenter::class
                 }
                 context(CTX_LIST) {
                     provide {
@@ -47,8 +49,10 @@ class MainModule : AndroidModule() {
                         provide { WeatherDetailPresenter(get(), get()) } bind WeatherDetailContract.Presenter::class
                     }
                 }
+                provide { AndroidDataStore(applicationContext) } bind DataStore::class
 
             }
+
     companion object {
         val CTX_MAIN = "MainActivityContext"
         val CTX_LIST = "List"

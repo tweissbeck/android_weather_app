@@ -2,6 +2,7 @@ package weather.lyra.com.weatherapp
 
 import android.app.Application
 import com.joanzapata.iconify.Iconify
+import com.joanzapata.iconify.fonts.FontAwesomeModule
 import com.joanzapata.iconify.fonts.WeathericonsModule
 import org.koin.KoinContext
 import org.koin.android.KoinContextAware
@@ -20,6 +21,6 @@ class WeatherApplication : Application(), KoinContextAware {
         super.onCreate()
 
         koinContext.setProperty(WebModule.SERVER_URL,getString(R.string.server_url))
-        Iconify.with(WeathericonsModule())
+        Iconify.with(WeathericonsModule()).with(FontAwesomeModule())
     }
 }

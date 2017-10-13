@@ -34,7 +34,7 @@ object NavigationHelper {
         ctx.supportFragmentManager.beginTransaction()
                 .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
                         android.R.anim.fade_in, android.R.anim.slide_out_right)
-                .replace(container, f)
+                .replace(container, f).addToBackStack(null)
                 .commit()
     }
 

@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         wheater_button.setOnClickListener { view ->
             presenter.searchWeather(editText.text.toString())
+            editText.setText("")
         }
     }
 
@@ -47,5 +48,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Snackbar.make(this.currentFocus, "/No good", Snackbar.LENGTH_SHORT).show()
     }
 
-
+    override fun initLastSearch(lastSearch: String) {
+        editText.hint = lastSearch
+    }
 }
