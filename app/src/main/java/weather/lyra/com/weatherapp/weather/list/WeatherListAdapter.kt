@@ -1,4 +1,4 @@
-package weather.lyra.com.weatherapp.weather
+package weather.lyra.com.weatherapp.weather.list
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,9 +12,10 @@ import weather.lyra.com.weatherapp.model.DailyForecastModel
 /**
  * @author tweissbeck
  */
-class WeatherListAdapter(val weathers: List<DailyForecastModel>) : RecyclerView.Adapter<WeatherListHolder>() {
+class WeatherListAdapter(val weathers: List<DailyForecastModel>, val clickCallBack: (DailyForecastModel) -> Unit) :
+        RecyclerView.Adapter<WeatherListHolder>() {
     override fun onBindViewHolder(holder: WeatherListHolder, position: Int) {
-        holder.display(weathers[position])
+        holder.display(weathers[position], clickCallBack)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherListHolder {
@@ -29,13 +30,17 @@ class WeatherListAdapter(val weathers: List<DailyForecastModel>) : RecyclerView.
 }
 
 class WeatherListHolder(val view: View) : RecyclerView.ViewHolder(view) {
-    val icon = view.findViewById(R.id.weatherItemIcon) as IconTextView
-    val temp = view.findViewById(R.id.weatherIemTemp) as TextView
-    val text = view.findViewById(R.id.weatherItemText) as TextView
-    fun display(dailyForecastModel: DailyForecastModel) {
+    val icon = view.findViewById<IconTextView>(R.id.weatherItemIcon)
+    val temp = view.findViewById<TextView>(R.id.weatherIemTemp)
+    val text = view.findViewById<TextView>(R.id.weatherItemText)
+    fun display(dailyForecastModel: DailyForecastModel,
+                clickCallBack: (DailyForecastModel) -> Unit) {
         icon.text = dailyForecastModel.icon
         temp.text = dailyForecastModel.temperatureString
         text.text = dailyForecastModel.forecastString
+        view.setOnClickListener {
+            clickCallBack(dailyForecastModel)
+        }
     }
 
 

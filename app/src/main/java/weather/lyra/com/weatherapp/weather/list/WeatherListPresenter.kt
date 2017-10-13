@@ -1,8 +1,10 @@
-package weather.lyra.com.weatherapp.weather
+package weather.lyra.com.weatherapp.weather.list
 
 import koin.sampleapp.service.json.getDailyForecasts
 import rx.SchedulerProvider
+import weather.lyra.com.weatherapp.model.DailyForecastModel
 import weather.lyra.com.weatherapp.repository.WeatherRepository
+import weather.lyra.com.weatherapp.weather.list.WeatherContract
 
 /**
  * @author tweissbeck
@@ -17,9 +19,12 @@ class WeatherListPresenter(val schedulerProvider: SchedulerProvider, val weather
 
     override fun loadWeather() {
 
-        weatherRepository.loadLast().map { it.getDailyForecasts() }.subscribeOn(schedulerProvider.io()).observeOn(
+        weatherRepository.loadLast().subscribeOn(schedulerProvider.io()).observeOn(
                 schedulerProvider.ui()).subscribe(
                 { success -> view.displayWeather(success) }, { error -> view.onError(error) })
     }
 
+    override fun loadDetail(dailyForecastModel: DailyForecastModel) {
+        view.displayDetail(dailyForecastModel.id)
+    }
 }

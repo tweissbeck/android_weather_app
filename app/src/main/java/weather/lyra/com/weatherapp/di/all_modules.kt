@@ -17,8 +17,10 @@ import weather.lyra.com.weatherapp.main.MainContract
 import weather.lyra.com.weatherapp.main.MainPresenter
 import weather.lyra.com.weatherapp.repository.WeatherRepository
 import weather.lyra.com.weatherapp.repository.WeatherRepositoryImpl
-import weather.lyra.com.weatherapp.weather.WeatherContract
-import weather.lyra.com.weatherapp.weather.WeatherListPresenter
+import weather.lyra.com.weatherapp.weather.detail.WeatherDetailContract
+import weather.lyra.com.weatherapp.weather.detail.WeatherDetailPresenter
+import weather.lyra.com.weatherapp.weather.list.WeatherContract
+import weather.lyra.com.weatherapp.weather.list.WeatherListPresenter
 import java.util.concurrent.TimeUnit
 
 fun allModules() = listOf(WebModule(), MainModule(), RxModule())
@@ -33,14 +35,25 @@ class RxModule : AndroidModule() {
 class MainModule : AndroidModule() {
     override fun context() =
             applicationContext {
-                context(name = "MainActivity") {
+                context(name = CTX_MAIN) {
                     // Rx schedulers
                     provide { MainPresenter(get(), get()) } bind MainContract.Presenter::class
                 }
-                context("WeatherActivity") {
-                    provide { WeatherListPresenter(get(), get()) } bind WeatherContract.Presenter::class
+                context(CTX_LIST) {
+                    provide {
+                        WeatherListPresenter(get(), get())
+                    } bind WeatherContract.Presenter::class
+                    context(CTX_DETAIL) {
+                        provide { WeatherDetailPresenter(get(), get()) } bind WeatherDetailContract.Presenter::class
+                    }
                 }
+
             }
+    companion object {
+        val CTX_MAIN = "MainActivityContext"
+        val CTX_LIST = "List"
+        val CTX_DETAIL = "Detail"
+    }
 
 }
 

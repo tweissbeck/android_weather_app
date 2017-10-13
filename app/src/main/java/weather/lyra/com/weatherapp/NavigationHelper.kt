@@ -7,14 +7,16 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AppCompatActivity
 
 object NavigationHelper {
 
-    fun startActivity(ctx: Activity, activity: Class<out Activity>, extras: Bundle? = null, clearStack: Boolean = false, animation: Boolean = true) {
+    fun startActivity(ctx: Activity, activity: Class<out Activity>, extras: Bundle? = null, clearStack: Boolean = false,
+                      animation: Boolean = true) {
         val i = Intent(ctx, activity)
         if (clearStack) {
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            i.addFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         }
         if (extras != null) {
             i.putExtras(extras)
@@ -28,14 +30,15 @@ object NavigationHelper {
         ActivityCompat.startActivity(ctx, i, options?.toBundle())
     }
 
-    fun slideFragment(ctx: FragmentActivity, container: Int, f: Fragment) {
+    fun slideFragment(ctx: AppCompatActivity, container: Int, f: Fragment) {
         ctx.supportFragmentManager.beginTransaction()
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.fade_in, android.R.anim.slide_out_right)
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+                        android.R.anim.fade_in, android.R.anim.slide_out_right)
                 .replace(container, f)
                 .commit()
     }
 
-    fun openFragment(ctx: FragmentActivity, container: Int, f: Fragment) {
+    fun openFragment(ctx: AppCompatActivity, container: Int, f: Fragment) {
         ctx.supportFragmentManager.beginTransaction()
 //                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
                 .replace(container, f)

@@ -8,6 +8,7 @@ import org.koin.android.ext.android.app.inject
 import org.koin.android.ext.android.app.release
 import weather.lyra.com.weatherapp.NavigationHelper
 import weather.lyra.com.weatherapp.R
+import weather.lyra.com.weatherapp.di.MainModule
 import weather.lyra.com.weatherapp.weather.WeatherDisplayActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
 
     override fun onPause() {
-        release("MainActivity")
+        release(MainModule.CTX_MAIN)
         super.onPause()
     }
 

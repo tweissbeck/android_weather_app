@@ -1,17 +1,18 @@
-package weather.lyra.com.weatherapp.weather
+package weather.lyra.com.weatherapp.weather.detail
 
 import koin.sampleapp.BasePresenter
 import koin.sampleapp.BaseView
 import weather.lyra.com.weatherapp.model.DailyForecastModel
 
-
-interface WeatherContract {
+/**
+ * @author tweissbeck
+ */
+interface WeatherDetailContract {
     interface View : BaseView<Presenter> {
-        fun displayWeather(dailyForecastModel: List<DailyForecastModel>)
-        fun onError(error: Throwable)
+        fun displayDetail(model: DailyForecastModel)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun loadWeather()
+        fun loadDetail(id: String)
     }
 }
