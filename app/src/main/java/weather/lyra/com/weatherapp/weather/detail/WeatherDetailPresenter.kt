@@ -2,7 +2,7 @@ package weather.lyra.com.weatherapp.weather.detail
 
 import android.util.Log
 import io.reactivex.disposables.Disposable
-import rx.SchedulerProvider
+import weather.lyra.com.weatherapp.rx.SchedulerProvider
 import weather.lyra.com.weatherapp.repository.WeatherRepository
 
 /**

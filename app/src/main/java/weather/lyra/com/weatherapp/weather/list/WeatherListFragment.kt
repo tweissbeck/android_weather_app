@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_weather_result.*
 import org.koin.android.ext.android.app.inject
 import org.koin.android.ext.android.app.release
-import weather.lyra.com.weatherapp.NavigationHelper
+import weather.lyra.com.weatherapp.util.NavigationHelper
 import weather.lyra.com.weatherapp.R
 import weather.lyra.com.weatherapp.di.MainModule
 import weather.lyra.com.weatherapp.model.DailyForecastModel

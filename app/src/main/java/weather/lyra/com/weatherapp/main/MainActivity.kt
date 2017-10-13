@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.app.inject
 import org.koin.android.ext.android.app.release
-import weather.lyra.com.weatherapp.NavigationHelper
+import weather.lyra.com.weatherapp.util.NavigationHelper
 import weather.lyra.com.weatherapp.R
 import weather.lyra.com.weatherapp.di.MainModule
 import weather.lyra.com.weatherapp.weather.WeatherDisplayActivity

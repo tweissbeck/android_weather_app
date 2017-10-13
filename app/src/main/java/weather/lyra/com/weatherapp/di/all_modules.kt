@@ -9,9 +9,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 //import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import rx.ApplicationSchedulerProvider
-import rx.SchedulerProvider
-import rx.TestSchedulerProvider
+import weather.lyra.com.weatherapp.rx.ApplicationSchedulerProvider
+import weather.lyra.com.weatherapp.rx.SchedulerProvider
+import weather.lyra.com.weatherapp.rx.TestSchedulerProvider
 import weather.lyra.com.weatherapp.datasource.WeatherDatasource
 import weather.lyra.com.weatherapp.datastore.AndroidDataStore
 import weather.lyra.com.weatherapp.datastore.DataStore

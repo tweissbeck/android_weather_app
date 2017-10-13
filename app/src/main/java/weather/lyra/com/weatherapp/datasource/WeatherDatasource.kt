@@ -2,8 +2,8 @@ package weather.lyra.com.weatherapp.datasource
 
 
 import io.reactivex.Single
-import koin.sampleapp.service.json.geocode.Geocode
-import koin.sampleapp.service.json.weather.Weather
+import weather.lyra.com.weatherapp.model.geocode.Geocode
+import weather.lyra.com.weatherapp.model.weather.Weather
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

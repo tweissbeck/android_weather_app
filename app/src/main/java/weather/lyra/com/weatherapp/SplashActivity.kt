@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_splash.*
 import weather.lyra.com.weatherapp.main.MainActivity
+import weather.lyra.com.weatherapp.util.NavigationHelper
 
 class SplashActivity : AppCompatActivity() {
 

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.joanzapata.iconify.IconDrawable
 import com.joanzapata.iconify.fonts.FontAwesomeIcons
-import weather.lyra.com.weatherapp.NavigationHelper
+import weather.lyra.com.weatherapp.util.NavigationHelper
 import weather.lyra.com.weatherapp.R
 import weather.lyra.com.weatherapp.util.setupActionBar
 import weather.lyra.com.weatherapp.weather.list.WeatherListFragment

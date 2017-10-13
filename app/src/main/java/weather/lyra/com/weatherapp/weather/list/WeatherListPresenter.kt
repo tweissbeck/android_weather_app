@@ -1,7 +1,7 @@
 package weather.lyra.com.weatherapp.weather.list
 
 import io.reactivex.disposables.Disposable
-import rx.SchedulerProvider
+import weather.lyra.com.weatherapp.rx.SchedulerProvider
 import weather.lyra.com.weatherapp.model.DailyForecastModel
 import weather.lyra.com.weatherapp.repository.WeatherRepository
 

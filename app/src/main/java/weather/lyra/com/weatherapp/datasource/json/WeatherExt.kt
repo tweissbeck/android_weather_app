@@ -1,7 +1,7 @@
 package koin.sampleapp.service.json
 
 import weather.lyra.com.weatherapp.model.DailyForecastModel
-import koin.sampleapp.service.json.weather.Weather
+import weather.lyra.com.weatherapp.model.weather.Weather
 
 private val PREFIX = "nt_"
 
